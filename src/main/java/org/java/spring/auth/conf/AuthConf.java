@@ -18,21 +18,21 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class AuthConf {
-//	@Bean
-//	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//
-//		http.csrf().disable().authorizeHttpRequests()
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		http.csrf().disable().authorizeHttpRequests()
 //		.requestMatchers("/pizza/{id:\\d+}").hasAnyAuthority("USER", "ADMIN")
 //		.requestMatchers("/pizza/**").hasAnyAuthority("ADMIN")
 //		.requestMatchers("/ingredients").hasAnyAuthority("USER", "ADMIN")
 //		.requestMatchers("/ingredients/**").hasAnyAuthority("ADMIN")
-////		.requestMatchers("/**").hasAnyAuthority("ADMIN", "USER")
-//			.requestMatchers("/**").permitAll()
-//			.and().formLogin()
-//			.and().logout();
-//
-//		return http.build();
-//	}
+//		.requestMatchers("/**").hasAnyAuthority("ADMIN", "USER")
+			.requestMatchers("/**").permitAll()
+			.and().formLogin()
+			.and().logout();
+
+		return http.build();
+	}
 
 	@Bean
 	UserDetailsService userDetailsService() {

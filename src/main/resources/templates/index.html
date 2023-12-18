@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Homepage del tuo portfolio fotografico</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<h1 th:if="${photos.size() == 0}" class="text-center mt-5">NON CI SONO FOTO!</h1>
+	<div class="container" th:if="${photos.size() > 0}">
+		<h1 class="text-center">Lista delle foto</h1>
+		<form>
+			<label for="photos">Cerca quì la tua foto: </label>
+			<input type="text" id="photos" name="q" th:value="${q}">
+			<button class="btn btn-primary">Search</button>
+		</form>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Titolo</th>
+					<th scope="col">Descrizione</th>
+					<th scope="col">Anteprima</th>
+					<th scope="col">Categorie</th>
+					<th scope="col">Pubblica</th>
+					<th scope="col">Options</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="photo : ${photos}">
+					<td>[[${photo.id}]]</td>
+					<td>[[${photo.title}]]</td>
+					<td>[[${photo.description}]]</td>
+					<td><img th:src="${photo.url}"></td>
+					<td>
+						<ul class="list-unstyled">
+							<li th:each="category : ${photo.categories}" th:text="${category.name}"></li>
+						</ul>
+					</td>
+
+					<td>
+						<!--				<a class="btn btn-primary" th:href="@{/pizza/{id}(id=${pizza.id})}">Show</a>
+						<a class="btn btn-warning" sec:authorize="hasAuthority('ADMIN')"
+							th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Edit</a>
+						<a class="btn btn-danger" sec:authorize="hasAuthority('ADMIN')"
+							th:href="@{/pizza/delete/{id}(id=${pizza.id})}"
+							onclick="return confirm('Sei sicuro di voler eliminare questa pizza?')">Delete</a>
+							-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="d-flex justify-content-center">
+			<!--	<a th:href="@{/pizza/create}" sec:authorize="hasAuthority('ADMIN')"
+				class="btn btn-success justify-content-center">Create a new pizza!</a>
+			<a th:href="@{/ingredients}" class="btn btn-warning justify-content-center">Look at ingredients!</a>
+			-->
+		</div>
+	</div>
+</body>
+
+</html>
