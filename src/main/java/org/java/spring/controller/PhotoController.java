@@ -8,6 +8,7 @@ import org.java.spring.db.pojo.Category;
 import org.java.spring.db.pojo.Photo;
 import org.java.spring.db.repo.CategoryRepository;
 import org.java.spring.db.repo.PhotoRepository;
+import org.java.spring.db.serv.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,8 @@ public class PhotoController {
 
 	@Autowired
 	PhotoRepository photoRepository;
+	@Autowired
+	PhotoService photoService;
 	@Autowired
 	CategoryRepository categoryRepository;
 	@Autowired
@@ -130,7 +133,9 @@ public class PhotoController {
 
 	@GetMapping("/photo/delete/{id}")
 	public String deletePhoto(@PathVariable("id") int id) {
-		photoRepository.deleteById(id);
+		Photo photo = photoService.findById(id);
+		photo.setUser(null);
+		photoService.delete(photo);
 		return "redirect:/";
 	}
 }

@@ -26,8 +26,8 @@ public class AuthConf {
 //		.requestMatchers("/pizza/**").hasAnyAuthority("ADMIN")
 //		.requestMatchers("/ingredients").hasAnyAuthority("USER", "ADMIN")
 //		.requestMatchers("/ingredients/**").hasAnyAuthority("ADMIN")
-//		.requestMatchers("/**").hasAnyAuthority("ADMIN", "USER")
-			.requestMatchers("/**").permitAll()
+		.requestMatchers("/**").hasAnyAuthority("ADMIN", "USER", "SUPER_ADMIN")
+//			.requestMatchers("/**").permitAll()
 			.and().formLogin()
 			.and().logout();
 

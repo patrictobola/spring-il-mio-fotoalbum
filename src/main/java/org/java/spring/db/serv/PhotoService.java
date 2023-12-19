@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class PhotoService {
 	@Autowired
 	private PhotoRepository photoRepository;
@@ -29,8 +30,11 @@ public class PhotoService {
 	public void save(Photo photo) {
 		photoRepository.save(photo);
 	}
+	@Transactional
 	public void delete(Photo photo) {
-		photoRepository.delete(photo);
+		photo.setUser(null);
+        save(photo);
+        photoRepository.deleteCustom(photo.getId());
 	}
 
 }
