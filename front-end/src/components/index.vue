@@ -16,7 +16,17 @@
       </li>
     </ul>
 
-    <!-- <router-link :to="{ name: 'CreatePizza' }">Create a new Pizza bro!</router-link> -->
+    <div>
+      <form @submit.prevent="sendMessage">
+        <label for="email">Email:</label>
+        <input type="email" v-model="mailData.email" required>
+
+        <label for="message">Message:</label>
+        <textarea v-model="mailData.message" required></textarea>
+
+        <button type="submit">Invia</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -26,6 +36,10 @@ export default {
     return {
       photos: [],
       searchQuery: '',
+      mailData: {
+        email: '',
+        message: ''
+      }
     };
   },
   computed: {
@@ -63,6 +77,23 @@ export default {
     },
     searchPhotos() {
     },
+    async sendMessage() {
+      try {
+        const response = await fetch('http://localhost:8080/api/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.mailData)
+        });
+        this.mailData = {
+          email: '',
+          message: ''
+        }
+      } catch (error) {
+        console.error('Errore durante l\'invio del messaggio', error);
+      }
+    }
   },
 };
 </script>
