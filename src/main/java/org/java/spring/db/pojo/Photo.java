@@ -38,7 +38,7 @@ public class Photo {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

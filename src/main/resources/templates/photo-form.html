@@ -34,6 +34,7 @@
 				<input type="checkbox" id="visible" th:value="*{visible}"
 					th:field="${photo.visible}">
 			</div>
+			<input type="hidden" th:field="*{user.id}" />
 			<div class="d-flex justify-content-between">
 				<button class="btn btn-primary"
 					th:text="${photo.id == null ? 'Crea foto!' : 'Modifica foto!'}"></button>

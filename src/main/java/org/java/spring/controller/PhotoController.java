@@ -32,7 +32,7 @@ public class PhotoController {
 	
 	@GetMapping("/")
 	public String homepage(Model model, @RequestParam(required = false) String q) {
-		List<Photo> result = q == null ? userService.getUserPhoto() : photoRepository.findByTitleContainingIgnoreCase(q);
+		List<Photo> result = q == null ? photoRepository.findByUserId(userService.getCurrentUser().getId()) : photoRepository.findByTitleContainingIgnoreCase(q);
 		model.addAttribute("photos", result);
 		model.addAttribute("q", q == null ? "" : q);
 		return "index";
@@ -63,6 +63,11 @@ public class PhotoController {
 	@GetMapping("/photo/show/{id}")
 	public String showPhoto(@PathVariable("id") int id, Model model, RedirectAttributes redirectAttributes) {
 		Photo selectedPhoto = photoRepository.findById(id).orElse(null);
+		User user = userService.getCurrentUser();
+	    if (selectedPhoto.getUser().getId() != user.getId()) {
+	        return "redirect:/access-denied";
+	    }
+		
 		model.addAttribute("photo", selectedPhoto);
 		model.addAttribute("categories", selectedPhoto.getCategories());
 		
@@ -74,6 +79,12 @@ public class PhotoController {
 	public String editPhoto(@PathVariable("id") int id, Model model) {
 		List<Category> categories = categoryRepository.findAll();
 		Photo selectedPhoto = photoRepository.findById(id).orElse(null);
+		
+		 User user = userService.getCurrentUser();
+		    if (selectedPhoto.getUser().getId() != user.getId()) {
+		        return "redirect:/access-denied";
+		    }
+		selectedPhoto.setUser(user);
 		model.addAttribute("photo", selectedPhoto);
 		model.addAttribute("categories", categories);
 		return "photo-form";
@@ -87,6 +98,8 @@ public class PhotoController {
 			for (FieldError error : bindingResult.getFieldErrors()) {
 				System.out.println("Campo: " + error.getField() + ". Messaggio: " + error.getDefaultMessage());
 			}
+			User user = userService.getCurrentUser();
+		    photoForm.setUser(user);
 			model.addAttribute("photo", photoForm);
 			return "photo-form";
 		}
