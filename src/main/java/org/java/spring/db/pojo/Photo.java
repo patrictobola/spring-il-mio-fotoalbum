@@ -28,7 +28,7 @@ public class Photo {
     @Column(nullable = false)
     private String url;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private boolean visible;
 
     @ManyToMany(fetch = FetchType.EAGER)

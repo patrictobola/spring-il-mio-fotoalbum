@@ -29,6 +29,11 @@
 				<label for="url" class="form-label">Inserisci l'URL di una foto': </label>
 				<input type="text" id="url" class="form-control" th:field="*{url}">
 			</div>
+			<div class="mb-3">
+				<label for="visible">Pubblicare subito la foto?</label>
+				<input type="checkbox" id="visible" th:value="*{visible}"
+					th:field="${photo.visible}">
+			</div>
 			<div class="d-flex justify-content-between">
 				<button class="btn btn-primary"
 					th:text="${photo.id == null ? 'Crea foto!' : 'Modifica foto!'}"></button>
