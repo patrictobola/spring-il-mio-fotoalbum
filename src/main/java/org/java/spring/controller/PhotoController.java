@@ -56,7 +56,7 @@ public class PhotoController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/photo/{id}")
+	@GetMapping("/photo/show/{id}")
 	public String showPhoto(@PathVariable("id") int id, Model model, RedirectAttributes redirectAttributes) {
 		Photo selectedPhoto = photoRepository.findById(id).orElse(null);
 		model.addAttribute("photo", selectedPhoto);
@@ -65,5 +65,29 @@ public class PhotoController {
 		redirectAttributes.addFlashAttribute("selectedPhoto", selectedPhoto);
 		return "photoDetails";
 	}
+	
+	@GetMapping("photo/edit/{id}")
+	public String editPhoto(@PathVariable("id") int id, Model model) {
+		List<Category> categories = categoryRepository.findAll();
+		Photo selectedPhoto = photoRepository.findById(id).orElse(null);
+		model.addAttribute("photo", selectedPhoto);
+		model.addAttribute("categories", categories);
+		return "photo-form";
+	}
+	
+	
+	@PostMapping("photo/edit/{id}")
+	public String storePhoto(Model model, @Valid @ModelAttribute("photo") Photo photoForm, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			System.out.println("Errori di validazione:");
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				System.out.println("Campo: " + error.getField() + ". Messaggio: " + error.getDefaultMessage());
+			}
+			model.addAttribute("photo", photoForm);
+			return "photo-form";
+		}
 
+		photoRepository.save(photoForm);
+		return "redirect:/";
+	}
 }

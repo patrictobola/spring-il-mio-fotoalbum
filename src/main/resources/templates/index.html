@@ -43,7 +43,7 @@
 
 
 					<td>
-						<a class="btn btn-primary" th:href="@{/photo/{id}(id=${photo.id})}">Show</a>
+						<a class="btn btn-primary" th:href="@{/photo/show/{id}(id=${photo.id})}">Show</a>
 						<a class="btn btn-warning" th:href="@{/photo/edit/{id}(id=${photo.id})}">Edit</a>
 						<a class="btn btn-danger" th:href="@{/photo/delete/{id}(id=${photo.id})}"
 							onclick="return confirm('Sei sicuro di voler eliminare questa pizza?')">Delete</a>
