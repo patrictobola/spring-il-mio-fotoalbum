@@ -31,7 +31,7 @@ public class PhotoRestController {
 	
 	@GetMapping
 	public ResponseEntity<List<Photo>> getIndex(@RequestParam(required = false) String q) {
-		List<Photo> photos = q == null ? photoRepository.findAll() : photoRepository.findByTitleContainingIgnoreCase(q);
+		List<Photo> photos = q == null ? photoRepository.findByVisible(true) : photoRepository.findByTitleContainingIgnoreCaseAndVisible(q, true);
 		return new ResponseEntity<>(photos, HttpStatus.OK);
 	}
 	
