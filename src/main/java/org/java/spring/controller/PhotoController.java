@@ -90,4 +90,10 @@ public class PhotoController {
 		photoRepository.save(photoForm);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/photo/delete/{id}")
+	public String deletePhoto(@PathVariable("id") int id) {
+		photoRepository.deleteById(id);
+		return "redirect:/";
+	}
 }
