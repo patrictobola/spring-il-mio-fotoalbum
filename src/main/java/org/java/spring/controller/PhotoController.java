@@ -31,6 +31,11 @@ public class PhotoController {
 	CategoryRepository categoryRepository;
 	@Autowired
 	UserService userService;
+	
+	@GetMapping("/access-denied")
+	public String error() {
+		return "access-denied";
+	}
 
 	@GetMapping("/")
 	public String homepage(Model model, @RequestParam(required = false) String q) {
