@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,12 @@ public class PhotoRestController {
 	public ResponseEntity<Photo> getPhoto(@PathVariable("id") int id){
 		Photo photo = photoService.findById(id);
 		if (photo == null) return new ResponseEntity<>(photo, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(photo, HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Photo> create(@RequestBody Photo photo){
+		photoService.save(photo);
 		return new ResponseEntity<>(photo, HttpStatus.OK);
 	}
 }
