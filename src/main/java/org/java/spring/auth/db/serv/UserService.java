@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.java.spring.auth.db.pojo.User;
 import org.java.spring.auth.db.repo.UserRepo;
+import org.java.spring.db.pojo.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,6 +30,16 @@ public class UserService implements UserDetailsService {
 	public void save(User user) {
 
 		userRepo.save(user);
+	}
+	
+	public User getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepo.findByUsername(username);
+    }
+	
+	public List<Photo> getUserPhoto(){
+		User user = getCurrentUser();
+		return user.getPhotos();
 	}
 
 	@Override

@@ -44,8 +44,10 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		
 		String psw = AuthConf.passwordEncoder().encode("sama");
 		
-		userService.save(new User("admin", psw , roles.get(0)));
-		userService.save(new User("user", psw , roles.get(1)));
+		User admin = new User("admin", psw , roles.get(0));
+		userService.save(admin);
+		User utente = new User("user", psw , roles.get(1));
+		userService.save(utente);
 		
 		
 		
@@ -61,17 +63,17 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		
 		List<Category> categories = categoryService.findAll();
 		
-		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, categories.get(0)));
-		photoService.save(new Photo("Beautiful Landscape 2", "Scenic view of nature 2", IMG_URL, true, categories.get(1),categories.get(0),categories.get(3)));
-		photoService.save(new Photo("Beautiful Landscape 3", "Scenic view of nature 3", IMG_URL, true, categories.get(2)));
-		photoService.save(new Photo("Beautiful Landscape 4", "Scenic view of nature 4", IMG_URL, true, categories.get(3)));
-		photoService.save(new Photo("Beautiful Landscape 5", "Scenic view of nature 5", IMG_URL, true, categories.get(4)));
-		photoService.save(new Photo("Beautiful Landscape 6", "Scenic view of nature 6", IMG_URL, true, categories.get(5)));
-		photoService.save(new Photo("Beautiful Landscape 7", "Scenic view of nature 7", IMG_URL, true, categories.get(6)));
-		photoService.save(new Photo("Beautiful Landscape 8", "Scenic view of nature 8", IMG_URL, true, categories.get(7)));
-		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, categories.get(0)));
-		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, categories.get(0)));
-		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, categories.get(0)));
-		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, categories.get(0)));
+		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, utente, categories.get(0)));
+		photoService.save(new Photo("Beautiful Landscape 2", "Scenic view of nature 2", IMG_URL, true, admin, categories.get(1),categories.get(0),categories.get(3)));
+		photoService.save(new Photo("Beautiful Landscape 3", "Scenic view of nature 3", IMG_URL, true, utente, categories.get(2)));
+		photoService.save(new Photo("Beautiful Landscape 4", "Scenic view of nature 4", IMG_URL, true, admin, categories.get(3)));
+		photoService.save(new Photo("Beautiful Landscape 5", "Scenic view of nature 5", IMG_URL, true, utente, categories.get(4)));
+		photoService.save(new Photo("Beautiful Landscape 6", "Scenic view of nature 6", IMG_URL, true, utente, categories.get(5)));
+		photoService.save(new Photo("Beautiful Landscape 7", "Scenic view of nature 7", IMG_URL, true, utente, categories.get(6)));
+		photoService.save(new Photo("Beautiful Landscape 8", "Scenic view of nature 8", IMG_URL, true, utente, categories.get(7)));
+		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, utente, categories.get(0)));
+		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, utente, categories.get(0)));
+		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, utente, categories.get(0)));
+		photoService.save(new Photo("Beautiful Landscape", "Scenic view of nature", IMG_URL, true, utente, categories.get(0)));
 	}
 }

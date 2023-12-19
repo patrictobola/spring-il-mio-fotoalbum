@@ -2,6 +2,8 @@ package org.java.spring.controller;
 
 import java.util.List;
 
+import org.java.spring.auth.db.pojo.User;
+import org.java.spring.auth.db.serv.UserService;
 import org.java.spring.db.pojo.Category;
 import org.java.spring.db.pojo.Photo;
 import org.java.spring.db.repo.CategoryRepository;
@@ -25,10 +27,12 @@ public class PhotoController {
 	
 	@Autowired PhotoRepository photoRepository;
 	@Autowired CategoryRepository categoryRepository;
+	@Autowired UserService userService;
+	
 	
 	@GetMapping("/")
 	public String homepage(Model model, @RequestParam(required = false) String q) {
-		List<Photo> result = q == null ? photoRepository.findAll() : photoRepository.findByTitleContainingIgnoreCase(q);
+		List<Photo> result = q == null ? userService.getUserPhoto() : photoRepository.findByTitleContainingIgnoreCase(q);
 		model.addAttribute("photos", result);
 		model.addAttribute("q", q == null ? "" : q);
 		return "index";

@@ -3,13 +3,17 @@ package org.java.spring.db.pojo;
 import java.util.Arrays;
 import java.util.List;
 
+import org.java.spring.auth.db.pojo.User;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,16 +37,29 @@ public class Photo {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Photo() {
+
+	public Photo() {
     }
 
-    public Photo(String title, String description, String url, boolean visible, Category... categories) {
+    public Photo(String title, String description, String url, boolean visible, User user, Category... categories) {
         setTitle(title);
         setDescription(description);
         setUrl(url);
         setVisible(visible);
+        setUser(user);
         setCategories(categories);;
+    }
+    public User getUser() {
+    	return user;
+    }
+    
+    public void setUser(User user) {
+    	this.user = user;
     }
 
 	public Integer getId() {
