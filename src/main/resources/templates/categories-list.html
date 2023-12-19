@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Lista delle categorie</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="text-center">Lista delle categorie</h1>
+		<ul class="list-group">
+			<li th:each="category : ${categories}" th:object="${category}"
+				class="list-group-item d-flex justify-content-between">
+				[[*{name}]]
+				<a class="btn btn-danger" th:href="@{/categories/delete/{id}(id=${category.id})}">DELETE</a>
+			</li>
+
+		</ul>
+		<div class="d-flex justify-content-between mt-5">
+			<a th:href="@{/}" class="btn btn-warning">Main menu</a>
+		</div>
+		<form th:object="${category}" th:action="@{/categories/save}" method="post">
+			<label id="name" class="form-label">Inserisci nuova categoria</label>
+			<input type="text" name="name" id="name" class="form-control" th:field="*{name}">
+			<button th:href="@{/}" class="btn btn-success mt-3">New category!</button>
+		</form>
+	</div>
+</body>
+
+</html>
