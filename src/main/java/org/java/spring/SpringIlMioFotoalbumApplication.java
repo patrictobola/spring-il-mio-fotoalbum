@@ -38,6 +38,7 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		
 		roleService.save(new Role("ADMIN"));
+		roleService.save(new Role("SUPER_ADMIN"));
 		roleService.save(new Role("USER"));
 		
 		List<Role> roles = roleService.findAll();
@@ -46,7 +47,9 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		
 		User admin = new User("admin", psw , roles.get(0));
 		userService.save(admin);
-		User utente = new User("user", psw , roles.get(1));
+		User superAdmin = new User("superadmin", psw , roles.get(1));
+		userService.save(superAdmin);
+		User utente = new User("user", psw , roles.get(2));
 		userService.save(utente);
 		
 		
