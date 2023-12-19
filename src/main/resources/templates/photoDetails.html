@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Photo Details</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<div class="container text-center mt-5">
+		<h1 th:text="${photo.title}"></h1>
+		<p>
+			<span>Descrizione: </span>
+			<span th:text="${photo.description}"></span>
+		</p>
+		<p>
+			<span>Visibilità: </span>
+			<span th:text="${photo.visible ? 'Photo pubblicata' : 'Photo nascosta'}"></span>
+		</p>
+		<img th:src="${photo.url}" alt="Photo preview">
+		<div class="pb-5"></div>
+		<ul>
+			<li th:each="category : ${photo.categories}">
+				<span th:text="${category.name}"></span>
+				<hr />
+			</li>
+		</ul>
+		<a href="/" class="btn btn-primary">Back to main menu</a>
+	</div>
+</body>
+
+</html>
