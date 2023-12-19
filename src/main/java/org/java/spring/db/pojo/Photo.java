@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.java.spring.auth.db.pojo.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,7 +41,8 @@ public class Photo {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> categories;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -101,11 +105,11 @@ public class Photo {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
-
+	@JsonProperty("categories")
 	public List<Category> getCategories() {
 		return categories;
 	}
-
+	@JsonIgnore
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}

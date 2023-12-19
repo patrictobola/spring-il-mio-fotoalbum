@@ -10,7 +10,7 @@
     <ul>
       <li v-for="photo in filteredPhotos" :key="photo.id">
         <router-link :to="{ name: 'photo-detail', params: { id: photo.id } }">
-          {{ photo.name }}
+          {{ photo.title }}
         </router-link>
         <button @click="deletePhoto(photo.id)">Delete</button>
       </li>
