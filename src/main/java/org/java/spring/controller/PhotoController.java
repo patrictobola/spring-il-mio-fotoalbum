@@ -32,7 +32,9 @@ public class PhotoController {
 	
 	@GetMapping("/")
 	public String homepage(Model model, @RequestParam(required = false) String q) {
-		List<Photo> result = q == null ? photoRepository.findByUserId(userService.getCurrentUser().getId()) : photoRepository.findByTitleContainingIgnoreCase(q);
+		List<Photo> result = q == null 
+				? photoRepository.findByUserId(userService.getCurrentUser().getId()) 
+				: photoRepository.findByTitleContainingIgnoreCaseAndUser_Id(q, userService.getCurrentUser().getId());
 		model.addAttribute("photos", result);
 		model.addAttribute("q", q == null ? "" : q);
 		return "index";
